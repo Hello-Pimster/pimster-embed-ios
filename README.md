@@ -24,14 +24,14 @@ You can add Pimster using Xcode or your `Package.swift`.
 - Xcode steps:
 
   1. In Xcode: File → Add Package Dependencies…
-  2. Enter the package URL provided by your Pimster contact
+  2. Enter the package URL: `https://github.com/Hello-Pimster/pimster-embed-ios`
   3. Choose the latest version and add the library product `PimsterEmbed`.
 
 - `Package.swift` example:
 
 ```swift
 dependencies: [
-    .package(url: "<PIMSTER_PACKAGE_URL>", from: "1.0.0")
+    .package(url: "https://github.com/Hello-Pimster/pimster-embed-ios", from: "1.0.0")
 ],
 targets: [
     .target(
@@ -43,6 +43,8 @@ targets: [
 ]
 ```
 
+**Version Strategy**: Using `from: "1.0.0"` automatically includes all compatible versions (1.0.x, 1.1.x, etc.) following semantic versioning. For more control, you can use exact versions like `.exact("1.0.0")`.
+
 **Note**: The package provides a unified `PimsterEmbed` product that includes both `PimsterGalleryWidget` and `PimsterStickyWidget` modules.
 
 Modules to import in your app code:
@@ -51,7 +53,7 @@ Modules to import in your app code:
 - `PimsterStickyWidget` for the Sticky widget
 - `PimsterEmbedCore` for shared types
 
-No Info.plist changes are required under normal ATS policies. If your app enforces a strict ATS that blocks Pimster’s domains, allow‑list the Pimster production domains provided by your contact.
+No Info.plist changes are required under normal ATS policies. If your app enforces a strict ATS that blocks Pimster's domains, allow‑list the Pimster production domains provided by your contact.
 
 ---
 
