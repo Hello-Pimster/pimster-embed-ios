@@ -1,0 +1,10 @@
+{
+  "name": "pimster-embed-ios",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "env:gen": "swiftgen",
+    "build": "xcodebuild -scheme PimsterEmbed -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' build"
+  }
+}

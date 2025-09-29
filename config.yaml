@@ -1,0 +1,6 @@
+environment: production
+graphql_url: https://cms.api.pimster.app/graphql
+aws_cf_url: https://media.pimster.app
+embed_server_url: https://embed.pimster.app
+pim_url_template: https://{{company}}.pimster.app
+analytics_url: https://api.data.pimster.app/t

@@ -1,0 +1,10 @@
+# SwiftGen configuration for Pimster Embed iOS Package
+yaml:
+  inputs:
+    - config.yaml
+  outputs:
+    templateName: inline-swift5
+    output: Sources/PimsterEmbedCore/Configuration/Generated/Environment.swift
+    params:
+      enumName: Environment
+      publicAccessLevel: public
