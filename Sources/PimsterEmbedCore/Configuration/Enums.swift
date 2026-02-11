@@ -32,6 +32,6 @@ public enum StickyPlacement: String, CaseIterable, Encodable, Sendable {
 
 /// Widget type identifiers
 public enum WidgetType: String, CaseIterable, Encodable, Sendable {
-    case gallery, stickyStory
+    case gallery, stickyStory, feed
 }
 
