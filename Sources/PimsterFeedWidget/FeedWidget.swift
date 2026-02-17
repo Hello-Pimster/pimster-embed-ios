@@ -5,8 +5,10 @@ import SwiftUI
 import PimsterEmbedCore
 
 /// Feed Widget for displaying a vertical feed of stories using WebView
+/// Main-actor isolated; safe to pass into MainActor from background (e.g. WKScriptMessageHandler).
 @available(iOS 13.0, *)
-public class FeedWidget: NSObject, ObservableObject {
+@MainActor
+public class FeedWidget: NSObject, ObservableObject, @unchecked Sendable {
 
     /// Analytics manager for tracking
     private let analyticsManager: AnalyticsManager
@@ -128,10 +130,10 @@ public class FeedWidget: NSObject, ObservableObject {
         return self.addToCartCallback?(addToCartPayload) ?? AddToCartResponse.success()
     }
 
-    /// Handle resize messages from embed server
+    /// Handle resize messages from embed server (may be called from background, e.g. WebKit).
     /// - Parameter height: New height in pixels
-    public func onResize(height: CGFloat) {
-        DispatchQueue.main.async {
+    public nonisolated func onResize(height: CGFloat) {
+        Task { @MainActor in
             self.dynamicHeight = height
         }
     }

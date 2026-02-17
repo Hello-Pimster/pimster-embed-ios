@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import WebKit
 import PimsterEmbedCore
 
@@ -101,16 +102,28 @@ private struct FeedWebView: UIViewRepresentable {
                     parent.onStoryOpen(storyOpenPayload)
                 }
             case MessageNames.resize.rawValue:
-                // Handle resize message from embed server
-                if let payload = body["payload"] as? [String: Any],
-                   let height = payload["height"] as? CGFloat {
-                    parent.onResize(height)
-                } else if let payload = body["payload"] as? [String: Any],
-                          let heightInt = payload["height"] as? Int {
-                    parent.onResize(CGFloat(heightInt))
-                } else if let payload = body["payload"] as? [String: Any],
-                          let heightDouble = payload["height"] as? Double {
-                    parent.onResize(CGFloat(heightDouble))
+                // Handle resize message from embed server (height can be number or string e.g. "5221px")
+                let payload = body["payload"] as? [String: Any]
+                print("PimsterEmbed: resize message received, payload=\(payload ?? [:])")
+                guard let payload = payload else { break }
+                let resolvedHeight: CGFloat? = {
+                    if let h = payload["height"] as? CGFloat { return h }
+                    if let h = payload["height"] as? Int { return CGFloat(h) }
+                    if let h = payload["height"] as? Double { return CGFloat(h) }
+                    if let h = payload["height"] as? String {
+                        let numericPart = h.trimmingCharacters(in: .letters).trimmingCharacters(in: .whitespaces)
+                        return numericPart.isEmpty ? nil : CGFloat(Double(numericPart) ?? 0)
+                    }
+                    return nil
+                }()
+                if let height = resolvedHeight {
+                    // Embed sends height in device pixels; convert to points for SwiftUI layout
+                    let scale = UIScreen.main.scale
+                    let heightInPoints = scale > 0 ? height / scale : height
+                    print("PimsterEmbed: resize height=\(height)px -> \(heightInPoints)pt (scale=\(scale))")
+                    parent.onResize(heightInPoints)
+                } else {
+                    print("PimsterEmbed: resize message missing or invalid height in payload")
                 }
             default:
                 break
