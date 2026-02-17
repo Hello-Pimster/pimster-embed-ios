@@ -39,11 +39,11 @@ private struct FeedWebView: UIViewRepresentable {
         
         let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
-        webView.scrollView.isScrollEnabled = true
-        webView.scrollView.showsVerticalScrollIndicator = true
+        // Height is driven by resize messages; parent ScrollView handles scrolling
+        webView.scrollView.isScrollEnabled = false
+        webView.scrollView.showsVerticalScrollIndicator = false
         webView.scrollView.showsHorizontalScrollIndicator = false
-        webView.scrollView.alwaysBounceVertical = true
-        webView.scrollView.alwaysBounceHorizontal = false
+        webView.scrollView.bounces = false
         webView.isOpaque = false
         webView.backgroundColor = .clear
         
