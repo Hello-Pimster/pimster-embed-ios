@@ -44,7 +44,8 @@ public class StoryPlayer: NSObject {
             "utm_medium": "iframe",
             "cookie_consent": "accepted",
             "bundle": "story",
-            "skip_onboarding": "true"
+            "skip_onboarding": "true",
+            "platform": "ios"
         ]
         
         if payload.moduleId != nil {
