@@ -6,4 +6,5 @@ public enum MessageNames: String, CaseIterable, Sendable {
     case addToCartResponse = "addToCartResponse"
     case closeDialog = "closeDialog"
     case openDialog = "openDialog"
+    case resize = "resize"
 }

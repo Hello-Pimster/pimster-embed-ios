@@ -10,7 +10,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "PimsterEmbed",
-            targets: ["PimsterStickyWidget", "PimsterGalleryWidget"]),
+            targets: ["PimsterStickyWidget", "PimsterGalleryWidget", "PimsterFeedWidget"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -22,6 +22,9 @@ let package = Package(
             dependencies: ["PimsterEmbedCore"]),
         .target(
             name: "PimsterGalleryWidget",
+            dependencies: ["PimsterEmbedCore"]),
+        .target(
+            name: "PimsterFeedWidget",
             dependencies: ["PimsterEmbedCore"]),
     ]
 )

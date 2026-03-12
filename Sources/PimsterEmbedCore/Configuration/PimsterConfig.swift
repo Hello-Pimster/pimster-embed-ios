@@ -27,7 +27,7 @@ public protocol WidgetConfig {
     var withTitle: Bool? { get }
 }
 
-// MARK: - Gallery “type equivalent”
+// MARK: - Gallery "type equivalent"
 
 public protocol GallerySpecificConfig {
     var moduleId: Int { get }
@@ -38,7 +38,7 @@ public protocol GallerySpecificConfig {
 
 public typealias IGalleryWidgetConfig = WidgetConfig & GallerySpecificConfig
 
-// Example concrete value conforming to the “type”
+// Example concrete value conforming to the "type"
 public struct GalleryWidgetConfig: IGalleryWidgetConfig {
     public let company: String
     public let moduleId: Int
@@ -82,7 +82,59 @@ public struct GalleryWidgetConfig: IGalleryWidgetConfig {
     }
 }
 
-// MARK: - Sticky “type equivalent”
+// MARK: - Feed "type equivalent"
+
+public protocol FeedSpecificConfig {
+    var moduleId: Int { get }
+    var gap: Double? { get }
+    var columns: Int? { get }
+}
+
+public typealias IFeedWidgetConfig = WidgetConfig & FeedSpecificConfig
+
+// Example concrete value conforming to the "type"
+public struct FeedWidgetConfig: IFeedWidgetConfig {
+    public let company: String
+    public let moduleId: Int
+    public let product: String
+    
+    public let borderColor: String?
+    public let animations: [StoryPreviewAnimation]?
+    public let display: StoryPreviewDisplay?
+    public let withPlayIcon: Bool?
+    public let withRadius: Bool?
+    public let withTitle: Bool?
+    public let gap: Double?
+    public let columns: Int?
+    
+    public init(
+        company: String,
+        moduleId: Int,
+        product: String? = nil,
+        borderColor: String? = nil,
+        animations: [StoryPreviewAnimation]? = nil,
+        display: StoryPreviewDisplay? = nil,
+        withPlayIcon: Bool? = nil,
+        withRadius: Bool? = nil,
+        withTitle: Bool? = nil,
+        gap: Double? = nil,
+        columns: Int? = nil
+    ) {
+        self.company = company
+        self.product = product ?? "default"
+        self.moduleId = moduleId
+        self.borderColor = borderColor
+        self.animations = animations
+        self.display = display
+        self.withPlayIcon = withPlayIcon
+        self.withRadius = withRadius
+        self.withTitle = withTitle
+        self.gap = gap
+        self.columns = columns
+    }
+}
+
+// MARK: - Sticky "type equivalent"
 
 public protocol StickySpecificConfig {
     var storyId: Int { get }
@@ -95,7 +147,7 @@ public protocol StickySpecificConfig {
 
 public typealias IStickyWidgetType = WidgetConfig & StickySpecificConfig
 
-// Example concrete value conforming to the “type”
+// Example concrete value conforming to the "type"
 public struct StickyWidgetConfig: IStickyWidgetType {
     public let company: String
     public let storyId: Int
